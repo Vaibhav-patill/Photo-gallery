@@ -26,10 +26,6 @@ function HeartIcon({ filled }) {
 }
 
 function PhotoCard({ photo, isFavorite = false, onToggleFavorite }) {
-  const label = isFavorite
-    ? `Remove ${photo.author}'s photo from favorites`
-    : `Add ${photo.author}'s photo to favorites`
-
   return (
     <li className="overflow-hidden rounded-lg bg-white shadow-sm ring-1 ring-gray-200">
       <img
@@ -40,17 +36,19 @@ function PhotoCard({ photo, isFavorite = false, onToggleFavorite }) {
         loading="lazy"
         className="aspect-[3/2] w-full bg-gray-200 object-cover"
       />
-      <div className="flex items-center justify-between gap-2 px-4 py-3">
+      <div className="flex items-center justify-between gap-2 px-4 py-2">
         <p className="truncate text-sm font-medium text-gray-900">
           {photo.author}
         </p>
+        {/* The label stays constant; aria-pressed tells assistive technology
+            whether the photo is currently a favorite. */}
         <button
           type="button"
-          aria-label={label}
+          aria-label={`Favorite photo by ${photo.author}`}
           aria-pressed={isFavorite}
           onClick={() => onToggleFavorite?.(photo.id)}
-          className={`rounded-full p-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:ring-offset-2 ${
-            isFavorite ? 'text-red-500' : 'text-gray-400 hover:text-red-500'
+          className={`rounded-full p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:ring-offset-2 ${
+            isFavorite ? 'text-red-600' : 'text-gray-500 hover:text-red-600'
           }`}
         >
           <HeartIcon filled={isFavorite} />
